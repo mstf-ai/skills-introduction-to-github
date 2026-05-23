@@ -1,0 +1,134 @@
+:root {
+  --bg: #0f172a;
+  --bg-alt: #111827;
+  --text: #e5e7eb;
+  --muted: #cbd5e1;
+  --accent: #22d3ee;
+  --accent-2: #a78bfa;
+  --card: rgba(30, 41, 59, 0.8);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top right, #1d4ed8 0%, var(--bg) 40%);
+  line-height: 1.6;
+}
+
+.hero {
+  padding: 1.5rem clamp(1rem, 4vw, 3rem) 4rem;
+  min-height: 75vh;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.top-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.top-nav a:hover,
+.top-nav a:focus-visible {
+  color: var(--accent);
+}
+
+.hero-content {
+  max-width: 720px;
+  margin-top: 5rem;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.15;
+  margin: 0;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-top: 0;
+}
+
+.section {
+  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 3rem);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 14px;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--accent-2);
+}
+
+.card ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.contact {
+  background: var(--bg-alt);
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .top-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
