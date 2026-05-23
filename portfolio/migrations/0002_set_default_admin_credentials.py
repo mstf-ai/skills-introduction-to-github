@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth.hashers import make_password
 from django.db import migrations
 
 
@@ -14,7 +15,7 @@ def set_default_admin_credentials(apps, schema_editor):
 
     admin_user.is_staff = True
     admin_user.is_superuser = True
-    admin_user.set_password("admin")
+    admin_user.password = make_password("admin")
     admin_user.save(update_fields=["password", "is_staff", "is_superuser"])
 
 
