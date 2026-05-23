@@ -404,6 +404,11 @@ input[type="password"]:focus-visible {
   margin: 0;
 }
 
+.info-text {
+  color: var(--muted);
+  margin: 0;
+}
+
 @media (max-width: 740px) {
   .nav {
     flex-direction: column;

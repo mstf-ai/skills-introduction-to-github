@@ -1,10 +1,11 @@
 const ADMIN_SESSION_KEY = "creative-portfolio-admin-session";
-const ADMIN_PASSCODE_KEY = "creative-portfolio-admin-passcode";
+const ADMIN_PASSCODE_HASH_KEY = "creative-portfolio-admin-passcode-hash";
 
 const adminLock = document.getElementById("adminLock");
 const adminPanel = document.getElementById("adminPanel");
 const loginForm = document.getElementById("loginForm");
 const adminPasscode = document.getElementById("adminPasscode");
+const loginInfo = document.getElementById("loginInfo");
 const loginError = document.getElementById("loginError");
 const logoutButton = document.getElementById("logoutButton");
 
@@ -31,13 +32,26 @@ function setLockedState(locked) {
   }
 }
 
-function getStoredPasscode() {
-  return localStorage.getItem(ADMIN_PASSCODE_KEY);
+function getStoredPasscodeHash() {
+  return localStorage.getItem(ADMIN_PASSCODE_HASH_KEY);
+}
+
+async function hashText(value) {
+  const bytes = new TextEncoder().encode(value);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return [...new Uint8Array(digest)].map((item) => item.toString(16).padStart(2, "0")).join("");
 }
 
 function showLoginError(message) {
+  loginInfo.hidden = true;
   loginError.textContent = message;
   loginError.hidden = false;
+}
+
+function showLoginInfo(message) {
+  loginError.hidden = true;
+  loginInfo.textContent = message;
+  loginInfo.hidden = false;
 }
 
 function resetForm() {
@@ -114,24 +128,33 @@ function renderProjectList() {
   }
 }
 
-loginForm.addEventListener("submit", (event) => {
+loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const enteredPasscode = adminPasscode.value.trim();
-  const storedPasscode = getStoredPasscode();
+  const storedPasscodeHash = getStoredPasscodeHash();
 
   if (enteredPasscode.length < 8) {
     showLoginError("Passcode must be at least 8 characters.");
     return;
   }
 
-  if (!storedPasscode) {
-    localStorage.setItem(ADMIN_PASSCODE_KEY, enteredPasscode);
+  if (!(window.crypto && crypto.subtle)) {
+    showLoginError("This browser cannot securely process passcode hashing.");
+    return;
+  }
+
+  const enteredPasscodeHash = await hashText(enteredPasscode);
+
+  if (!storedPasscodeHash) {
+    localStorage.setItem(ADMIN_PASSCODE_HASH_KEY, enteredPasscodeHash);
+    loginInfo.hidden = true;
     loginError.hidden = true;
     setLockedState(false);
     return;
   }
 
-  if (enteredPasscode === storedPasscode) {
+  if (enteredPasscodeHash === storedPasscodeHash) {
+    loginInfo.hidden = true;
     loginError.hidden = true;
     setLockedState(false);
   } else {
@@ -180,9 +203,8 @@ if (sessionStorage.getItem(ADMIN_SESSION_KEY) === "true") {
   setLockedState(true);
 }
 
-if (!getStoredPasscode()) {
-  loginError.hidden = false;
-  loginError.textContent = "No passcode exists yet. Enter one to initialize admin access on this browser.";
+if (!getStoredPasscodeHash()) {
+  showLoginInfo("No passcode exists yet. Enter one to initialize admin access on this browser.");
 }
 
 renderProjectList();
