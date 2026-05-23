@@ -63,6 +63,12 @@
           <p>Filter by field and quickly search by title, tools, or summary.</p>
         </div>
 
+        <div class="insights-grid" id="insightsGrid" aria-live="polite"></div>
+        <div class="category-chart-wrap">
+          <h3>Portfolio Distribution by Career Field</h3>
+          <div id="categoryChart" class="category-chart"></div>
+        </div>
+
         <div class="controls">
           <label class="control">
             <span>Category</span>
@@ -100,8 +106,10 @@
 
     <footer class="site-footer">
       <p>© <span id="year"></span> CreativePortfolio. All rights reserved.</p>
+      <p><a class="admin-link" href="./admin.html">Admin Dashboard</a></p>
     </footer>
 
+    <script src="./data.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>
