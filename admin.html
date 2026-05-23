@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Creative Portfolio</title>
+    <meta
+      name="description"
+      content="Admin dashboard to organize and control portfolio projects."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="./index.html">CreativePortfolio</a>
+        <ul class="nav-links">
+          <li><a href="./index.html#projects">View Portfolio</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section">
+        <h1 class="admin-title">Admin Dashboard</h1>
+        <p class="admin-subtitle">Manage portfolio content in one organized place.</p>
+        <p class="warning-banner">
+          Security warning: this page uses client-side browser-local access
+          control only. Do not use this pattern for real production security.
+          Use server-side authentication and authorization.
+        </p>
+      </section>
+
+      <section class="section admin-lock" id="adminLock">
+        <h2>Admin Access</h2>
+        <form id="loginForm" class="admin-form">
+          <label class="control">
+            <span>Admin passcode</span>
+            <input
+              id="adminPasscode"
+              type="password"
+              placeholder="Enter passcode"
+              required
+            />
+          </label>
+          <button class="button" type="submit">Unlock Dashboard</button>
+          <p id="loginInfo" class="info-text" hidden></p>
+          <p id="loginError" class="error-text" hidden></p>
+        </form>
+      </section>
+
+      <section class="section admin-panel" id="adminPanel" hidden>
+        <div class="admin-head">
+          <h2>Project Manager</h2>
+          <button id="logoutButton" class="button button-secondary" type="button">
+            Lock
+          </button>
+        </div>
+
+        <form id="projectForm" class="admin-form">
+          <input id="editIndex" type="hidden" value="-1" />
+          <label class="control">
+            <span>Title</span>
+            <input id="projectTitle" type="text" required />
+          </label>
+          <label class="control">
+            <span>Category</span>
+            <input id="projectCategory" type="text" required />
+          </label>
+          <label class="control">
+            <span>Summary</span>
+            <textarea id="projectSummary" rows="3" required></textarea>
+          </label>
+          <label class="control">
+            <span>Tools (comma separated)</span>
+            <input id="projectTools" type="text" placeholder="React, Node.js" />
+          </label>
+          <div class="admin-actions">
+            <button class="button" type="submit">Save Project</button>
+            <button id="cancelEdit" class="button button-secondary" type="button">
+              Cancel Edit
+            </button>
+          </div>
+        </form>
+
+        <div id="adminProjectsList" class="admin-projects-list"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Admin workspace for CreativePortfolio.</p>
+    </footer>
+
+    <script src="./data.js"></script>
+    <script src="./admin.js"></script>
+  </body>
+</html>
