@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ profile.full_name }} | Sports Portfolio</title>
+    <meta
+      name="description"
+      content="Professional sports portfolio built with Django and Python."
+    />
+    <link rel="stylesheet" href="/static/portfolio/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href="#home">{{ profile.full_name }}</a>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Built with Django & Python</p>
+          <h1>{{ profile.headline }}</h1>
+          <p class="hero-text">{{ profile.intro }}</p>
+          <a class="button" href="{{ profile.cta_anchor }}">{{ profile.cta_label }}</a>
+        </div>
+        <figure class="hero-photo-wrap">
+          <img class="hero-photo" src="{{ profile.photo_url }}" alt="{{ profile.full_name }}" />
+        </figure>
+      </section>
+
+      <section id="about" class="section">
+        <h2>About</h2>
+        <p>
+          This portfolio is managed through Django admin for simple, professional,
+          and clear customization in any code editor.
+        </p>
+      </section>
+
+      <section id="skills" class="section">
+        <h2>Core Skills</h2>
+        <div class="chip-grid">
+          {% for skill in skills %}
+          <span class="chip">{{ skill }}</span>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+          {% for project in projects %}
+          <article class="project-card">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.summary }}</p>
+            <ul class="project-meta">
+              <li>{{ project.category }}</li>
+              {% for tool in project.tools %}
+              <li>{{ tool }}</li>
+              {% endfor %}
+            </ul>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section id="contact" class="section contact">
+        <h2>Contact</h2>
+        <a class="button button-secondary" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Content control: <a class="admin-link" href="/admin/">Django Admin Dashboard</a></p>
+    </footer>
+  </body>
+</html>
