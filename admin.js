@@ -1,5 +1,5 @@
-const ADMIN_PASSCODE = "admin123";
 const ADMIN_SESSION_KEY = "creative-portfolio-admin-session";
+const ADMIN_PASSCODE_KEY = "creative-portfolio-admin-passcode";
 
 const adminLock = document.getElementById("adminLock");
 const adminPanel = document.getElementById("adminPanel");
@@ -29,6 +29,15 @@ function setLockedState(locked) {
   } else {
     sessionStorage.setItem(ADMIN_SESSION_KEY, "true");
   }
+}
+
+function getStoredPasscode() {
+  return localStorage.getItem(ADMIN_PASSCODE_KEY);
+}
+
+function showLoginError(message) {
+  loginError.textContent = message;
+  loginError.hidden = false;
 }
 
 function resetForm() {
@@ -107,10 +116,26 @@ function renderProjectList() {
 
 loginForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  const isValid = adminPasscode.value === ADMIN_PASSCODE;
-  loginError.hidden = isValid;
-  if (isValid) {
+  const enteredPasscode = adminPasscode.value.trim();
+  const storedPasscode = getStoredPasscode();
+
+  if (enteredPasscode.length < 8) {
+    showLoginError("Passcode must be at least 8 characters.");
+    return;
+  }
+
+  if (!storedPasscode) {
+    localStorage.setItem(ADMIN_PASSCODE_KEY, enteredPasscode);
+    loginError.hidden = true;
     setLockedState(false);
+    return;
+  }
+
+  if (enteredPasscode === storedPasscode) {
+    loginError.hidden = true;
+    setLockedState(false);
+  } else {
+    showLoginError("Incorrect passcode.");
   }
 });
 
@@ -153,6 +178,11 @@ if (sessionStorage.getItem(ADMIN_SESSION_KEY) === "true") {
   setLockedState(false);
 } else {
   setLockedState(true);
+}
+
+if (!getStoredPasscode()) {
+  loginError.hidden = false;
+  loginError.textContent = "No passcode exists yet. Enter one to initialize admin access on this browser.";
 }
 
 renderProjectList();
