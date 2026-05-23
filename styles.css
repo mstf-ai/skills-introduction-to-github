@@ -344,6 +344,15 @@ input[type="password"]:focus-visible {
   margin-top: 0.6rem;
 }
 
+.warning-banner {
+  margin-top: 0.8rem;
+  border: 1px solid rgba(255, 181, 72, 0.5);
+  background: rgba(255, 181, 72, 0.12);
+  color: #ffe7bf;
+  border-radius: 0.7rem;
+  padding: 0.7rem 0.8rem;
+}
+
 .admin-lock,
 .admin-panel {
   border: 1px solid var(--border);

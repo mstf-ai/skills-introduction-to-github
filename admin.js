@@ -133,8 +133,8 @@ loginForm.addEventListener("submit", async (event) => {
   const enteredPasscode = adminPasscode.value.trim();
   const storedPasscodeHash = getStoredPasscodeHash();
 
-  if (enteredPasscode.length < 8) {
-    showLoginError("Passcode must be at least 8 characters.");
+  if (enteredPasscode.length < 12) {
+    showLoginError("Passcode must be at least 12 characters.");
     return;
   }
 
