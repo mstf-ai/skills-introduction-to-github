@@ -23,10 +23,11 @@ This repository now contains a customizable portfolio website built with **Djang
    python3 manage.py migrate
    ```
 
-3. Create an admin user:
+3. Use default admin credentials:
 
    ```bash
-   python3 manage.py createsuperuser
+   Username: admin
+   Password: admin
    ```
 
 4. Start the server:
