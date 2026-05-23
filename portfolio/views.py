@@ -4,10 +4,10 @@ from .models import Profile, Project, Skill
 
 DEFAULT_PROFILE = {
     "full_name": "Mustafa",
-    "headline": "Sports-focused Developer | Django & Python",
-    "intro": "I build clean, professional portfolio and sports-focused web experiences using Django and Python.",
+    "headline": "Sports Technology Specialist | Django & Python Developer",
+    "intro": "I build reliable, user-focused sports web platforms with Django and Python, combining clear product thinking, scalable architecture, and polished user experience.",
     "email": "hello@example.com",
-    "photo_url": "https://github.com/user-attachments/assets/9120fc56-bd73-4811-a38c-39447b8a0402",
+    "photo_url": "https://github.com/user-attachments/assets/a0b71175-236b-4c9f-b731-1f5bbb9a4177",
     "cta_label": "View Projects",
     "cta_anchor": "#projects",
 }
