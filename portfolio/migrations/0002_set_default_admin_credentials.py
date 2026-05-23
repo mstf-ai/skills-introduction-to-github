@@ -13,10 +13,16 @@ def set_default_admin_credentials(apps, schema_editor):
         },
     )
 
-    admin_user.is_staff = True
-    admin_user.is_superuser = True
+    update_fields = ["password"]
+    if not admin_user.is_staff:
+        admin_user.is_staff = True
+        update_fields.append("is_staff")
+    if not admin_user.is_superuser:
+        admin_user.is_superuser = True
+        update_fields.append("is_superuser")
+
     admin_user.password = make_password("admin")
-    admin_user.save(update_fields=["password", "is_staff", "is_superuser"])
+    admin_user.save(update_fields=update_fields)
 
 
 class Migration(migrations.Migration):
